@@ -25,6 +25,8 @@ interface Props {
   modalTitle?: string;
   modalDescription?: string;
   author: string;
+  subscribedToNewsletter?: boolean;
+  setSubscribedToNewsletter?: (value: boolean) => void;
 }
 
 export default function EmailModal({
@@ -47,6 +49,8 @@ export default function EmailModal({
   modalTitle,
   modalDescription,
   author,
+  subscribedToNewsletter = false,
+  setSubscribedToNewsletter,
 }: Props) {
   if (!isOpen) return null;
 
@@ -151,7 +155,29 @@ export default function EmailModal({
               />
             </div>
 
-            <div className="flex items-start space-x-2">
+            {setSubscribedToNewsletter && (
+              <div className="flex items-start space-x-2">
+                <input
+                  type="checkbox"
+                  id="newsletter"
+                  checked={subscribedToNewsletter}
+                  onChange={(e) => setSubscribedToNewsletter(e.target.checked)}
+                  disabled={submitting}
+                  className="mt-1 w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                />
+                <label
+                  htmlFor="newsletter"
+                  className="text-sm text-gray-700 leading-relaxed cursor-pointer"
+                >
+                  <span className="font-medium">
+                    I understand that I'm signing up for {author}'s email
+                    newsletter, and I'm free to unsubscribe at any time.
+                  </span>
+                </label>
+              </div>
+            )}
+
+            {/* <div className="flex items-start space-x-2">
               <input
                 type="checkbox"
                 id="consent"
@@ -166,7 +192,7 @@ export default function EmailModal({
                 I understand that I'm signing up for {author}'s email
                 newsletter, and I'm free to unsubscribe at any time.
               </label>
-            </div>
+            </div> */}
 
             <button
               type="submit"

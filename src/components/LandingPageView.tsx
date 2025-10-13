@@ -30,6 +30,7 @@ export default function LandingPageView({ landingPage }: Props) {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [subscribedToNewsletter, setSubscribedToNewsletter] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -68,6 +69,7 @@ export default function LandingPageView({ landingPage }: Props) {
         email: requiresEmail ? email : undefined,
         firstName: askFirst ? firstName : undefined,
         lastName: askLast ? lastName : undefined,
+        subscribedToNewsletter,
       });
 
       setShowModal(false);
@@ -360,6 +362,8 @@ export default function LandingPageView({ landingPage }: Props) {
           errorMessage={errorMessage}
           onSubmit={handleSubmit}
           theme={theme}
+          subscribedToNewsletter={subscribedToNewsletter}
+          setSubscribedToNewsletter={setSubscribedToNewsletter}
           bookTitle={book.title}
           author={book.author}
           modalTitle={settings?.modalTitle}

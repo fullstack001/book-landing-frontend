@@ -17,6 +17,10 @@ interface Props {
   errorMessage: string;
   onSubmit: (e: React.FormEvent) => void;
   theme: Theme;
+  // Newsletter subscription
+  subscribedToNewsletter?: boolean;
+  setSubscribedToNewsletter?: (value: boolean) => void;
+  showNewsletterCheckbox?: boolean;
 }
 
 export default function EmailForm({
@@ -33,6 +37,9 @@ export default function EmailForm({
   errorMessage,
   onSubmit,
   theme,
+  subscribedToNewsletter = false,
+  setSubscribedToNewsletter,
+  showNewsletterCheckbox = true,
 }: Props) {
   return (
     <form onSubmit={onSubmit} className="space-y-4">
@@ -117,6 +124,35 @@ export default function EmailForm({
           placeholder="Enter your email address"
         />
       </div>
+
+      {showNewsletterCheckbox && setSubscribedToNewsletter && (
+        <div className="flex items-start gap-3">
+          <input
+            type="checkbox"
+            id="newsletter"
+            checked={subscribedToNewsletter}
+            onChange={(e) => setSubscribedToNewsletter(e.target.checked)}
+            disabled={submitting}
+            className={clsx(
+              "mt-1 w-4 h-4 rounded",
+              "border-2",
+              theme.inputBorder,
+              "focus:ring-2 focus:ring-offset-2",
+              theme.inputFocus,
+              "disabled:opacity-50 disabled:cursor-not-allowed"
+            )}
+          />
+          <label
+            htmlFor="newsletter"
+            className="text-sm cursor-pointer select-none"
+          >
+            <span className="font-medium">Subscribe to newsletter</span>
+            <span className="block opacity-70 mt-1">
+              Get updates about new books, exclusive content, and special offers
+            </span>
+          </label>
+        </div>
+      )}
 
       <button
         type="submit"

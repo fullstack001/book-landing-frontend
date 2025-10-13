@@ -138,6 +138,7 @@ export interface ConversionRequest {
   email?: string;
   firstName?: string;
   lastName?: string;
+  subscribedToNewsletter?: boolean;
 }
 
 export interface ConversionResponse {
